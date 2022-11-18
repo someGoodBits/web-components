@@ -1,3 +1,39 @@
+class Counter{
+    constructor(target,initCount,duration){
+        this.target = target ;
+        this.curCount = initCount ;
+        this.start ;
+        this.end ;
+        this.clock ;
+        this.p;
+        this.delay = duration / 10 ;
+        this.target.innerText = initCount ;
+    }
+    
+    setCount(count){
+        this.end = count ;
+        this.start = this.curCount ;
+        this.p = 0;
+        
+        clearInterval(this.clock);
+        
+        this.clock = setInterval(
+            ()=>{
+                this.p += 0.1 ;
+                this.curCount = Math.round(this.p * (this.end - this.start) + this.start);
+                this.target.innerText = this.curCount ;
+                
+                if(this.p>=1){
+                    clearInterval(this.clock);
+                    this.target.innerText = this.end ;
+                    this.curCount = this.end ;
+                }
+            },
+            this.delay
+        );
+    }
+}
+
 class CircularProgressbar extends HTMLElement{
 
     constructor(){
